@@ -9,7 +9,8 @@ Run:
 import json
 import time
 from pathlib import Path
-
+import numpy as np
+import random
 import torch
 import torch.nn as nn
 
@@ -23,9 +24,10 @@ from scripts.pems_data import (
 
 # at the top of train_lstm.py and train_gnn.py, replace the hardcoded paths:
 DATASET      = "pems08"   # change to "pems08" when needed
+SPLIT = "temporal"
 
-METRICS_PATH = Path(f"reports/{DATASET}_lstm_metrics.json")
-CKPT_PATH    = Path(f"checkpoints/{DATASET}_lstm_best.pt")
+METRICS_PATH = Path(f"reports/{DATASET}_lstm_metrics_{SPLIT}.json")
+CKPT_PATH    = Path(f"checkpoints/{DATASET}_lstm_best_{SPLIT}.pt")
 
 # ── Paths ──────────────────────────────────────────────────────────────────────
 # METRICS_PATH = Path("reports/pems04_lstm_metrics.json")
@@ -40,6 +42,16 @@ LR         = 1e-3
 BATCH_SIZE = 256
 EPOCHS     = 30
 PATIENCE   = 5
+SEED = 42
+
+def set_seed(seed: int = 42):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark     = False
+
 
 
 # ── Model ──────────────────────────────────────────────────────────────────────
@@ -68,10 +80,11 @@ class SensorLSTM(nn.Module):
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
+    set_seed(SEED)
     t0 = time.time()
     print(f"\n=== LSTM Training  (device: {DEVICE}) ===\n")
 
-    data = load_data(dataset=DATASET,load_graph=False, window=WINDOW)
+    data = load_data(dataset=DATASET,split=SPLIT,load_graph=False, window=WINDOW)
     train_loader, val_loader, test_loader = make_loaders(data, window=WINDOW, batch_size=BATCH_SIZE)
 
     model     = SensorLSTM(data.F, HIDDEN_DIM, NUM_LAYERS, DROPOUT).to(DEVICE)

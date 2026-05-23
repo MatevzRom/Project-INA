@@ -12,7 +12,8 @@ print(sys.path)
 import json
 import time
 from pathlib import Path
-
+import random
+import numpy as np
 import torch
 import torch.nn as nn
 
@@ -24,10 +25,11 @@ from scripts.pems_data import (
     make_loaders,
 )
 # at the top of train_lstm.py and train_gnn.py, replace the hardcoded paths:
-DATASET      = "pems08"   # change to "pems08" when needed
+DATASET = "pems08"   # change to "pems08" when needed
+SPLIT = "temporal"
 
-METRICS_PATH = Path(f"reports/{DATASET}_gnn_metrics.json")
-CKPT_PATH    = Path(f"checkpoints/{DATASET}_gnn_best.pt")
+METRICS_PATH = Path(f"reports/{DATASET}_gnn_metrics_{SPLIT}.json")
+CKPT_PATH    = Path(f"checkpoints/{DATASET}_gnn_best_{SPLIT}.pt")
 # ── Paths ──────────────────────────────────────────────────────────────────────
 # METRICS_PATH = Path("reports/pems04_gnn_metrics.json")
 # CKPT_PATH    = Path("checkpoints/gnn_best.pt")
@@ -42,6 +44,16 @@ LR         = 1e-3
 BATCH_SIZE = 64
 EPOCHS     = 30
 PATIENCE   = 5
+
+SEED = 42
+
+def set_seed(seed: int = 42):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark     = False
 
 
 # ── Model ──────────────────────────────────────────────────────────────────────
@@ -105,10 +117,11 @@ class GCNGRU(nn.Module):
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
+    set_seed(SEED)
     t0 = time.time()
     print(f"\n=== GCN-GRU Training  (device: {DEVICE}) ===\n")
 
-    data = load_data(dataset=DATASET,load_graph=True, window=WINDOW)
+    data = load_data(dataset=DATASET,split="temporal",load_graph=True, window=WINDOW)
     train_loader, val_loader, test_loader = make_loaders(data, window=WINDOW, batch_size=BATCH_SIZE)
 
     adj   = data.adj.to(DEVICE)
