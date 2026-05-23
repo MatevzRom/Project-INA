@@ -1,0 +1,6 @@
+numpy
+pandas
+networkx
+scikit-learn
+matplotlib
+python-louvain
