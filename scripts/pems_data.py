@@ -438,5 +438,3 @@ def evaluate_loader(
 # for fold in folds:
 #     train_loader, val_loader, test_loader = make_loaders(fold, ...)
 ##    reinitialise model + optimizer here
-
-# usefull tip: SETSEED -> check /scripts/train_gnn.py for example
