@@ -413,3 +413,30 @@ def evaluate_loader(
         torch.cat(all_logits),
         torch.cat(all_labels),
     )
+
+
+#Tutorial use:
+
+# temporal — single object, no loop
+# data = load_data(dataset=DATASET, split="temporal", ...)
+# train_loader, val_loader, test_loader = make_loaders(data, ...)
+
+
+
+# # walk_forward — no train_frac needed
+# folds = load_data(dataset=DATASET, split="walk_forward", load_graph=True,
+#                   window=WINDOW, n_folds=5,
+#                   val_frac=0.1, test_frac=0.1)
+# for fold in folds:
+#     train_loader, val_loader, test_loader = make_loaders(fold, ...)
+##     reinitialise model + optimizer here
+
+# # sliding_window — needs train_frac
+# folds = load_data(dataset=DATASET, split="sliding_window", load_graph=True,
+#                   window=WINDOW, n_folds=5,
+#                   train_frac=0.6, val_frac=0.1, test_frac=0.1)
+# for fold in folds:
+#     train_loader, val_loader, test_loader = make_loaders(fold, ...)
+##    reinitialise model + optimizer here
+
+# usefull tip: SETSEED -> check /scripts/train_gnn.py for example
