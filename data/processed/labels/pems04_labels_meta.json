@@ -1,0 +1,10 @@
+{
+  "rule": "speed < threshold_ratio * v_free",
+  "threshold_ratio": 0.6,
+  "free_flow_percentile": 95.0,
+  "train_fraction": 0.6,
+  "positive_rate": 0.03449237656195366,
+  "v_free_min": 59.099998474121094,
+  "v_free_median": 68.9000015258789,
+  "v_free_max": 74.5999984741211
+}
