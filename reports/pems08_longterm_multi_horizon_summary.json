@@ -1,0 +1,375 @@
+{
+  "horizon_names": [
+    "1h",
+    "3h",
+    "6h",
+    "12h"
+  ],
+  "best_baseline": {
+    "name": "ridge_alpha_1",
+    "kind": "baseline",
+    "source": "reports/pems08_longterm_multi_horizon_baselines.json",
+    "mae_mean": 2.869862735271454,
+    "rmse_mean": 5.4964883970348195,
+    "mape_mean": 6.247114419937134,
+    "r2_mean": 0.3526558578014374,
+    "mae_by_horizon": [
+      2.136439800262451,
+      3.1327550411224365,
+      3.446230888366699,
+      2.7640252113342285
+    ],
+    "rmse_by_horizon": [
+      4.404349059072779,
+      5.874594816479899,
+      6.277900979662647,
+      5.429108732923953
+    ]
+  },
+  "best_neural": {
+    "name": "gru_w24_h64_l2_d02_b32_e40",
+    "label": "GRU w24 h64 L2 d0.2 e40",
+    "kind": "neural",
+    "source": "reports/pems08_longterm_multi_horizon_gru_w24_h64_l2_d02_b32_e40.json",
+    "mae_mean": 2.1015431582927704,
+    "rmse_mean": 4.9351474598775935,
+    "mape_mean": 4.958383679389954,
+    "r2_mean": 0.48151853680610657,
+    "mae_by_horizon": [
+      1.7565690279006958,
+      2.1402268409729004,
+      2.397350549697876,
+      2.1120262145996094
+    ],
+    "rmse_by_horizon": [
+      4.1857728954956475,
+      5.059480119618077,
+      5.538134929001034,
+      4.957201895395614
+    ],
+    "config": {
+      "window": 24,
+      "hidden_dim": 64,
+      "num_layers": 2,
+      "dropout": 0.2,
+      "batch_size": 32,
+      "n_params": 43460
+    }
+  },
+  "improvements": {
+    "avg_mae_vs_best_baseline": 0.7683195769786835,
+    "avg_mae_relative_vs_best_baseline": 0.2677199740377164,
+    "mae_6h_vs_best_baseline": 1.0488803386688232
+  },
+  "all_models": [
+    {
+      "name": "gru_w24_h64_l2_d02_b32_e40",
+      "label": "GRU w24 h64 L2 d0.2 e40",
+      "kind": "neural",
+      "source": "reports/pems08_longterm_multi_horizon_gru_w24_h64_l2_d02_b32_e40.json",
+      "mae_mean": 2.1015431582927704,
+      "rmse_mean": 4.9351474598775935,
+      "mape_mean": 4.958383679389954,
+      "r2_mean": 0.48151853680610657,
+      "mae_by_horizon": [
+        1.7565690279006958,
+        2.1402268409729004,
+        2.397350549697876,
+        2.1120262145996094
+      ],
+      "rmse_by_horizon": [
+        4.1857728954956475,
+        5.059480119618077,
+        5.538134929001034,
+        4.957201895395614
+      ],
+      "config": {
+        "window": 24,
+        "hidden_dim": 64,
+        "num_layers": 2,
+        "dropout": 0.2,
+        "batch_size": 32,
+        "n_params": 43460
+      }
+    },
+    {
+      "name": "gru_w24_h64_b32_e40",
+      "label": "GRU w24 h64 L1 e40",
+      "kind": "neural",
+      "source": "reports/pems08_longterm_multi_horizon_gru_w24_h64_b32_e40.json",
+      "mae_mean": 2.144747704267502,
+      "rmse_mean": 4.9634054298210195,
+      "mape_mean": 5.065279722213745,
+      "r2_mean": 0.47468429803848267,
+      "mae_by_horizon": [
+        1.7764948606491089,
+        2.210768699645996,
+        2.4658498764038086,
+        2.1258773803710938
+      ],
+      "rmse_by_horizon": [
+        4.163027865644408,
+        5.149374336828798,
+        5.622133160230404,
+        4.9190863565804674
+      ],
+      "config": {
+        "window": 24,
+        "hidden_dim": 64,
+        "num_layers": 1,
+        "dropout": 0.0,
+        "batch_size": 32,
+        "n_params": 18500
+      }
+    },
+    {
+      "name": "gru_h64_e40",
+      "label": "GRU w12 h64 L1 e40",
+      "kind": "neural",
+      "source": "reports/pems08_longterm_multi_horizon_gru_h64_e40.json",
+      "mae_mean": 2.1719252467155457,
+      "rmse_mean": 5.005803112375537,
+      "mape_mean": 5.149806976318359,
+      "r2_mean": 0.46457459032535553,
+      "mae_by_horizon": [
+        1.7829289436340332,
+        2.2301647663116455,
+        2.524914026260376,
+        2.149693250656128
+      ],
+      "rmse_by_horizon": [
+        4.132449503715301,
+        5.1836564865857815,
+        5.749817223339073,
+        4.9572892358619915
+      ],
+      "config": {
+        "window": 12,
+        "hidden_dim": 64,
+        "num_layers": 1,
+        "dropout": 0.0,
+        "batch_size": 128,
+        "n_params": 18500
+      }
+    },
+    {
+      "name": "pems08_longterm_multi_horizon_gru",
+      "label": "GRU w12 h64 L1 e20",
+      "kind": "neural",
+      "source": "reports/pems08_longterm_multi_horizon_gru.json",
+      "mae_mean": 2.210290938615799,
+      "rmse_mean": 5.053539932094516,
+      "mape_mean": 5.236826658248901,
+      "r2_mean": 0.4544369876384735,
+      "mae_by_horizon": [
+        1.8161178827285767,
+        2.2621772289276123,
+        2.574824571609497,
+        2.1880440711975098
+      ],
+      "rmse_by_horizon": [
+        4.186814437088803,
+        5.239908783388079,
+        5.800545160389223,
+        4.98689134751196
+      ],
+      "config": {
+        "window": 12,
+        "hidden_dim": 64,
+        "num_layers": 1,
+        "dropout": 0.0,
+        "batch_size": 128,
+        "n_params": 18500
+      }
+    },
+    {
+      "name": "ridge_alpha_1",
+      "kind": "baseline",
+      "source": "reports/pems08_longterm_multi_horizon_baselines.json",
+      "mae_mean": 2.869862735271454,
+      "rmse_mean": 5.4964883970348195,
+      "mape_mean": 6.247114419937134,
+      "r2_mean": 0.3526558578014374,
+      "mae_by_horizon": [
+        2.136439800262451,
+        3.1327550411224365,
+        3.446230888366699,
+        2.7640252113342285
+      ],
+      "rmse_by_horizon": [
+        4.404349059072779,
+        5.874594816479899,
+        6.277900979662647,
+        5.429108732923953
+      ]
+    },
+    {
+      "name": "current_speed",
+      "kind": "baseline",
+      "source": "reports/pems08_longterm_multi_horizon_baselines.json",
+      "mae_mean": 3.9366020560264587,
+      "rmse_mean": 7.688037542410615,
+      "mape_mean": 7.925179600715637,
+      "r2_mean": -0.31182239949703217,
+      "mae_by_horizon": [
+        2.117112636566162,
+        3.453620672225952,
+        4.517744541168213,
+        5.657930374145508
+      ],
+      "rmse_by_horizon": [
+        4.922930504382178,
+        7.373482758224897,
+        8.65628261078018,
+        9.799454296255202
+      ]
+    },
+    {
+      "name": "mean_train_global",
+      "kind": "baseline",
+      "source": "reports/pems08_longterm_multi_horizon_baselines.json",
+      "mae_mean": 3.9930285811424255,
+      "rmse_mean": 6.8851413010953655,
+      "mape_mean": 8.55540680885315,
+      "r2_mean": -0.00038701295852661133,
+      "mae_by_horizon": [
+        3.9840993881225586,
+        3.982118844985962,
+        4.007107257843018,
+        3.998788833618164
+      ],
+      "rmse_by_horizon": [
+        6.856535373754223,
+        6.8465729208486525,
+        6.910582965379022,
+        6.9268739443995635
+      ]
+    },
+    {
+      "name": "speed_lag_2016_7d",
+      "kind": "baseline",
+      "source": "reports/pems08_longterm_multi_horizon_baselines.json",
+      "mae_mean": 4.129487633705139,
+      "rmse_mean": 8.025835721242736,
+      "mape_mean": 8.388370394706726,
+      "r2_mean": -0.3955090194940567,
+      "mae_by_horizon": [
+        2.6088948249816895,
+        3.6450414657592773,
+        4.596473217010498,
+        5.667541027069092
+      ],
+      "rmse_by_horizon": [
+        6.016790737799571,
+        7.629523764530467,
+        8.713340913535307,
+        9.743687469105598
+      ]
+    },
+    {
+      "name": "speed_lag_288_1d",
+      "kind": "baseline",
+      "source": "reports/pems08_longterm_multi_horizon_baselines.json",
+      "mae_mean": 4.41920804977417,
+      "rmse_mean": 8.545585073253642,
+      "mape_mean": 9.009719729423523,
+      "r2_mean": -0.5640033483505249,
+      "mae_by_horizon": [
+        3.1542773246765137,
+        3.976102828979492,
+        4.812402248382568,
+        5.7340497970581055
+      ],
+      "rmse_by_horizon": [
+        6.94989912659695,
+        8.169155857362192,
+        9.099993997089795,
+        9.963291311965632
+      ]
+    },
+    {
+      "name": "speed_lag_144_12h",
+      "kind": "baseline",
+      "source": "reports/pems08_longterm_multi_horizon_baselines.json",
+      "mae_mean": 4.507306516170502,
+      "rmse_mean": 8.479933208768145,
+      "mape_mean": 9.168054461479187,
+      "r2_mean": -0.56092669069767,
+      "mae_by_horizon": [
+        5.500186443328857,
+        5.21061372756958,
+        4.660713195800781,
+        2.657712697982788
+      ],
+      "rmse_by_horizon": [
+        9.6065846431424,
+        9.284880162597096,
+        8.877517987735006,
+        6.150750041598077
+      ]
+    },
+    {
+      "name": "speed_lag_576_2d",
+      "kind": "baseline",
+      "source": "reports/pems08_longterm_multi_horizon_baselines.json",
+      "mae_mean": 4.63877010345459,
+      "rmse_mean": 8.792674522288221,
+      "mape_mean": 9.406718492507935,
+      "r2_mean": -0.6457755267620087,
+      "mae_by_horizon": [
+        3.627943992614746,
+        4.221837043762207,
+        4.940589427947998,
+        5.764709949493408
+      ],
+      "rmse_by_horizon": [
+        7.569090942465449,
+        8.389167303836407,
+        9.226584826126672,
+        9.98585501672436
+      ]
+    },
+    {
+      "name": "speed_lag_36_3h",
+      "kind": "baseline",
+      "source": "reports/pems08_longterm_multi_horizon_baselines.json",
+      "mae_mean": 4.741990685462952,
+      "rmse_mean": 8.84448012338292,
+      "mape_mean": 9.551629662513733,
+      "r2_mean": -0.6561263799667358,
+      "mae_by_horizon": [
+        3.8995742797851562,
+        4.503754615783691,
+        5.25302267074585,
+        5.311611175537109
+      ],
+      "rmse_by_horizon": [
+        7.9872055262100226,
+        8.63479411999087,
+        9.313281954507774,
+        9.442638892823018
+      ]
+    },
+    {
+      "name": "speed_lag_72_6h",
+      "kind": "baseline",
+      "source": "reports/pems08_longterm_multi_horizon_baselines.json",
+      "mae_mean": 5.059439063072205,
+      "rmse_mean": 9.182517634985471,
+      "mape_mean": 10.186764240264893,
+      "r2_mean": -0.781917154788971,
+      "mae_by_horizon": [
+        4.7279534339904785,
+        5.205506324768066,
+        5.624491214752197,
+        4.679805278778076
+      ],
+      "rmse_by_horizon": [
+        8.835554551410853,
+        9.248084617465222,
+        9.741559801475463,
+        8.904871569590346
+      ]
+    }
+  ]
+}
