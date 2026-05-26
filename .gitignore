@@ -5,7 +5,40 @@ build/
 dist/
 wheels/
 *.egg-info
-data
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # Virtual environments
-.venv
+.venv/
+venv/
+env/
+
+# Local configuration
+.env
+.env.*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# LaTeX build files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+
+# Generated data directory
+data/
