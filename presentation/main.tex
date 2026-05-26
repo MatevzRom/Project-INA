@@ -63,52 +63,53 @@
 
 \section{Introduction}
 
-\begin{frame}{Traffic speed forecasting is a graph time-series problem}
-\footnotesize
+\begin{frame}{Traffic Speed Forecasting as Graph Time Series}
+\fontsize{8}{9.6}\selectfont
 \begin{columns}[T,totalwidth=\textwidth]
-\begin{column}{0.48\textwidth}
-\textbf{Question}
+\begin{column}{0.4\textwidth}
+\textbf{Task}
 
-Given recent measurements from freeway sensors, how fast will traffic move later at each sensor?
+Recent sensor history $\rightarrow$ future sensor speed?
 
 \vspace{0.6em}
-\textbf{This project}
+\textbf{Forecast ranges}
 
-We compare neural models for two forecasting ranges:
 \begin{itemize}
-  \item near future: +5 to +60 minutes
+  \item near future: +5 to +60 min
   \item longer term: +1h, +3h, +6h, +12h
 \end{itemize}
 
 \vspace{0.6em}
-\textbf{Main message}
+\textbf{Graph view}
 
-PEMS08 is a node-level regression task on a road graph: each sensor has its own time series, and neighbouring sensors provide traffic context.
+\begin{itemize}
+  \item node-level regression
+  \item sensor time series
+  \item neighbour traffic context
+\end{itemize}
 
-\vspace{0.6em}
-Speed forecasts support travel-time estimation, congestion warnings, and routing decisions.
+\vspace{0.4em}
+\textbf{Use case:} travel time, congestion warnings, routing
 \end{column}
-\begin{column}{0.47\textwidth}
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth,height=0.54\textheight,keepaspectratio]{pems08_daily_congestion.png}
-\end{figure}
-\vspace{-0.7em}
+\begin{column}{0.63\textwidth}
 \centering
-\footnotesize Congestion follows daily structure, but is rare overall: 2.27\% of sensor-time points.
+\includegraphics[width=\linewidth,height=0.66\textheight,keepaspectratio]{pems08_daily_congestion.png}
+\vspace{-0.9em}
+
+Daily congestion pattern; positive rate: 2.27\%.
 \end{column}
 \end{columns}
 \end{frame}
 
 \section{Dataset}
 
-\begin{frame}{PEMS08 gives us a sparse but connected road graph}
+\begin{frame}{PEMS08: Sparse, Connected Road Graph}
 \footnotesize
 \begin{columns}[T,totalwidth=\textwidth]
 \begin{column}{0.55\textwidth}
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth,height=0.60\textheight,keepaspectratio]{pems08_network_layout.png}
+  \includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]{pems08_network_layout.png}
 \end{figure}
 \end{column}
 \begin{column}{0.40\textwidth}
@@ -128,15 +129,15 @@ duration & \textbf{62 days} \\
 \textbf{Road graph facts}
 \begin{itemize}
   \item 277 unique directed edges
-  \item one weakly connected component
-  \item average in/out-degree 1.63
+  \item 1 weakly connected component
+  \item avg in/out-degree: 1.63
   \item 16 Louvain communities
 \end{itemize}
 
 \vspace{0.5em}
 \textbf{Modeling consequence}
 
-Each sensor has its own time series, but nearby sensors provide useful context.
+Sensor history + nearby-road context
 \end{column}
 \end{columns}
 \end{frame}
@@ -243,9 +244,9 @@ Cost: $\sim$60k params (vs $\sim$56k) -- essentially free.
 
 \section[NN3]{Neural Network 3: long-term horizons}
 
-\begin{frame}{NN3 predicts later-today traffic speed}
+\begin{frame}{NN3: Later-Today Speed Forecasting}
 \footnotesize
-Near-future forecasting is useful for immediate control. We also predict farther ahead, where daily traffic rhythm becomes important.
+\textbf{Goal:} from immediate traffic control to later-today planning
 
 \vspace{0.5em}
 \begin{columns}[T,totalwidth=\textwidth]
@@ -267,16 +268,16 @@ Near-future forecasting is useful for immediate control. We also predict farther
 \textbf{Target}
 
 \begin{itemize}
-  \item one speed prediction per sensor
-  \item four horizons predicted together
+  \item speed per sensor
+  \item 4 horizons jointly
 \end{itemize}
 \end{column}
 \begin{column}{0.47\textwidth}
 \textbf{Leakage-safe inputs}
 \begin{itemize}
-  \item current flow, occupancy, speed at time $t$
+  \item flow, occupancy, speed at $t$
   \item speed lags: 3h, 6h, 12h, 1d, 2d, 7d
-  \item current and target time-of-day/day-of-week
+  \item current + target calendar time
 \end{itemize}
 
 \vspace{0.4em}
@@ -291,10 +292,10 @@ train / val / test & 9417 / 3139 / 3140 \\
 
 \vspace{0.35em}
 \centering
-No future traffic measurement is used as an input feature.
+\textbf{No future traffic measurements as inputs}
 \end{frame}
 
-\begin{frame}{NN3 uses one shared GRU for all sensors}
+\begin{frame}{NN3: Shared-Sensor GRU}
 \small
 \begin{center}
 \large
@@ -306,9 +307,9 @@ No future traffic measurement is used as an input feature.
 \begin{column}{0.48\textwidth}
 \textbf{Why this architecture}
 \begin{itemize}
-  \item keeps the model small and stable
-  \item learns temporal patterns shared by all sensors
-  \item predicts all long horizons in one pass
+  \item small, stable model
+  \item temporal patterns shared across sensors
+  \item all long horizons in one pass
 \end{itemize}
 \end{column}
 \begin{column}{0.47\textwidth}
@@ -327,7 +328,7 @@ No future traffic measurement is used as an input feature.
 
 \vspace{0.6em}
 \centering
-Train-only normalisation is used, and metrics are reported after denormalising back to mph.
+\textbf{Train-only normalisation; metrics in mph}
 \end{frame}
 
 \section{Results}
@@ -362,7 +363,7 @@ NN2 beats the average persistence by +7.7\% -- and that average is hard (see nex
 \small
 \begin{columns}[T,totalwidth=\textwidth]
 \begin{column}{0.58\textwidth}
-\missingfigure{0.55\textheight}{Per-horizon MAE crossover plot\\Persistence vs. NN2\\Use teammate figure when available.}
+\missingfigure{0.55\textheight}{Per-horizon MAE crossover plot\\Persistence vs. NN2}
 \end{column}
 \begin{column}{0.37\textwidth}
 \textbf{Key finding}
@@ -381,7 +382,7 @@ $\Rightarrow$ judge models per horizon, not by a single average.
 
 \begin{frame}{Results -- ablation (each component helps)}
 \small
-\missingfigure{0.48\textheight}{Ablation figure\\Fixed graph vs. adaptive adjacency vs. residual\\Use teammate figure when available.}
+\missingfigure{0.48\textheight}{Ablation figure\\Fixed graph vs. adaptive adjacency vs. residual}
 
 \vspace{0.6em}
 Fixed-graph base is weakest; + adaptive adjacency and + residual each lower MAE.
@@ -390,7 +391,7 @@ Fixed-graph base is weakest; + adaptive adjacency and + residual each lower MAE.
 Same trend for NN1 and NN2 -- the gains come from architecture, not scale.
 \end{frame}
 
-\begin{frame}{NN3 result: lower error at every long horizon}
+\begin{frame}{NN3 Result: Lower MAE Across Horizons}
 \footnotesize
 \begin{columns}[T,totalwidth=\textwidth]
 \begin{column}{0.61\textwidth}
@@ -418,7 +419,10 @@ Same trend for NN1 and NN2 -- the gains come from architecture, not scale.
 \vspace{0.5em}
 \textbf{Interpretation}
 
-The hardest point is +6h; +12h becomes easier because daily periodicity helps.
+\begin{itemize}
+  \item hardest horizon: +6h
+  \item +12h helped by daily periodicity
+\end{itemize}
 \end{column}
 \end{columns}
 \end{frame}
@@ -426,11 +430,11 @@ The hardest point is +6h; +12h becomes easier because daily periodicity helps.
 \begin{frame}{Takeaways}
 \large
 \begin{itemize}
-  \item PEMS08 is naturally a graph time-series forecasting problem.
-  \item The short-horizon models predict immediate traffic dynamics.
-  \item NN3 extends the project to later-today forecasting: +1h, +3h, +6h, +12h.
-  \item Chronological splits and leakage checks make the reported scores realistic.
-  \item The best long-horizon GRU beats the strongest baseline at every horizon.
+  \item PEMS08: graph time-series forecasting
+  \item short horizons: immediate traffic dynamics
+  \item NN3: later-today horizons (+1h, +3h, +6h, +12h)
+  \item chronological splits + leakage checks
+  \item best long-horizon GRU: lowest MAE at every horizon
 \end{itemize}
 \end{frame}
 
